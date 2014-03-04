@@ -9,6 +9,13 @@ namespace SportsStore.WebUI
     {
         public static void Register(HttpConfiguration config)
         {
+            //config.Routes.MapHttpRoute(
+            //    name: "",
+            //    routeTemplate: "Page{page}",
+            //    defaults: new { controller = "Product", action = "List", category = (string)null }
+            //    );
+
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

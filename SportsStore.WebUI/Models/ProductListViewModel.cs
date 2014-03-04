@@ -10,5 +10,6 @@ namespace SportsStore.WebUI.Models
     {
         public IEnumerable<Product> Products { set; get; }
         public PagingInfo PagingInfo { set; get; }
+        public string CurrentCategory { set; get; }
     }
 }
