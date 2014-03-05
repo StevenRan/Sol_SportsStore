@@ -18,50 +18,37 @@ namespace SportsStore.WebUI.Controllers
             repository = repo;
         }
 
-        public RedirectToRouteResult AddToCart(int productId, string resultUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string resultUrl)
         {
             Product pro = repository.Products.FirstOrDefault(p => p.ProductId == productId);
 
             if (pro != null)
             {
-                GetCart().AddItem(pro, 1); 
+                cart.AddItem(pro, 1); 
             }
 
             return RedirectToAction("Index", new { resultUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int productId, string resultUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string resultUrl)
         {
             Product pro = repository.Products.FirstOrDefault(p => p.ProductId == productId);
 
             if (pro != null)
             {
-                GetCart().RemoveLine(pro);
+                cart.RemoveLine(pro);
             }
 
             return RedirectToAction("Index", new { resultUrl });
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel
                 {
-                    Cart = GetCart(),
+                    Cart = cart,
                     ReturnUrl = returnUrl
                 });
         }
-
-        private Cart GetCart()
-        {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-
-            return cart;
-        }
-
     }
 }
